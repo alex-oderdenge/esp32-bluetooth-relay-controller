@@ -99,8 +99,7 @@ All dependencies are auto-managed by `platformio.ini`.
 
 ## ✨ Future Improvements
 
-- Save relay state across reboots (EEPROM or LittleFS)  
-- Hot-reload config via Bluetooth or web UI  
+- Add functionality to receive and overwrite `config.json` via Bluetooth, updating the relay configuration dynamically in real time.
 - Web-based config editor (using ESPAsyncWebServer)  
 
 ---
