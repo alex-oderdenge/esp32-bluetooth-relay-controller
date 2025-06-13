@@ -1,5 +1,4 @@
 [
-  { "pin": 15, "button": 2, "command": "1", "default": true },
-  { "pin": 4,  "button": -1, "command": "2", "default": false },
-  { "pin": 16, "button": 0, "command": "3", "default": true }
+  { "pin": 2, "button": 15, "command": "1", "default": true, "pwm": true, "pwm_threshold": 3 },
+  { "pin": 13, "button": 15, "command": "2", "default": true, "pwm": true, "pwm_threshold": 3 }
 ]

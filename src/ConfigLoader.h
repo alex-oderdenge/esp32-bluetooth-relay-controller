@@ -34,9 +34,14 @@ public:
             int button = obj["button"] | -1;
             const char* command = obj["command"] | "";
             bool defState = obj["default"] | false;
+            bool pwm = obj["pwm"] | false;
+            int pwmThreshold = obj["pwm_threshold"] | 128;
 
             if (strlen(command) == 1) {
-                relaysOut.emplace_back(pin, button, command[0], defState);
+                relaysOut.emplace_back(pin, button, command[0], defState, 300, pwm, pwmThreshold);
+                if (pwm) {
+                    Serial.printf("[System] PWM enabled for relay '%c' with threshold %d\n", command[0], pwmThreshold);
+                }
             } else {
                 Serial.println("[Warning] Skipped invalid relay entry with no valid command");
             }
