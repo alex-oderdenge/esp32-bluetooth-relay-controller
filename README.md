@@ -12,6 +12,7 @@ A scalable and dynamic relay control system using an ESP32 microcontroller. Supp
 - 🧠 Clean object-oriented design with `RelayController` class  
 - ⚡ Supports unlimited relays using `std::vector`  
 - 🗂️ Uses SPIFFS for internal file storage  
+- 🌊 PWM (Pulse Width Modulation) support for gradual power control
 
 ---
 
@@ -28,6 +29,7 @@ A scalable and dynamic relay control system using an ESP32 microcontroller. Supp
 > - an optional GPIO input pin for button  
 > - a Bluetooth command character (e.g. `'1'`, `'2'`, `'A'`, etc.)  
 > - a default ON/OFF state on startup  
+> - optional PWM control with configurable steps
 
 ---
 
@@ -51,9 +53,8 @@ esp32-relay-controller/
 
 ```json
 [
-  { "pin": 15, "button": 2, "command": "1", "default": true },
-  { "pin": 4,  "button": -1, "command": "2", "default": false },
-  { "pin": 16, "button": 0, "command": "3", "default": true }
+  { "pin": 15, "button": 2, "command": "1", "default": true, "pwm": true, "pwm_threshold": 3 },
+  { "pin": 4,  "button": -1, "command": "2", "default": false, "pwm": false, "pwm_threshold": 3 }
 ]
 ```
 
@@ -61,6 +62,8 @@ esp32-relay-controller/
 - `button`: GPIO for optional toggle button (`-1` = unused)  
 - `command`: Single character Bluetooth command  
 - `default`: `true` = relay starts ON, `false` = OFF  
+- `pwm`: `true` = enable PWM control, `false` = digital on/off
+- `pwm_threshold`: Number of steps to reach 100% power (e.g., 3 = 33%, 66%, 100%)
 
 ---
 
@@ -68,6 +71,10 @@ esp32-relay-controller/
 
 1. Connect to **ESP32_VDS** via any serial Bluetooth app.
 2. Send a single character (e.g. `'1'`) to toggle the corresponding relay.
+3. For PWM-enabled relays:
+   - Each command increases power by one step
+   - After reaching maximum power, next command turns off
+   - Bluetooth feedback shows current power percentage
 
 ---
 
